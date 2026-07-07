@@ -1,0 +1,410 @@
+/* ==========================================================================
+   SOWTHAS Boutique Academy — Login Page
+   Design tokens
+   -------------------------------------------------------------------------
+   Page cream:      #F4EBDC
+   Card cream:      #FFFDF8
+   Ink (headline):  #2B2620
+   Ink muted:       #6E6459
+   Gold deep:       #8C5A22
+   Gold mid:        #B98A3E
+   Gold pale:       #E9D3AC
+   Border hairline: rgba(140, 90, 34, 0.28)
+   ========================================================================== */
+
+.sowthas-page {
+  --gold-deep: #8c5a22;
+  --gold-mid: #b98a3e;
+  --gold-pale: #e9d3ac;
+  --ink: #2b2620;
+  --ink-muted: #6e6459;
+  --card-bg: #fffdf8;
+  --page-bg: #f4e6d5; /* sampled from the artwork's own background tone */
+  --border-hairline: rgba(140, 90, 34, 0.28);
+
+  /* The artwork's native aspect ratio (1672 x 941 px). Every measurement
+     below the stage is derived from this ratio, so it never changes. */
+  --art-ratio: 1672 / 941;
+
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--page-bg);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- Stage ----------
+   The stage is the background artwork itself, sized to the exact viewport
+   while preserving --art-ratio exactly. Because width and height are locked
+   together by aspect-ratio, the image below can be painted at 100% x 100%
+   with zero cropping, zero stretching, and zero blur — it is mathematically
+   impossible for it to distort. Whatever space is left over in the viewport
+   (when the viewport's own ratio doesn't match the artwork) is simply the
+   solid --page-bg color, sampled from the artwork's edge tone. */
+
+.sowthas-stage {
+  position: relative;
+  aspect-ratio: var(--art-ratio);
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: auto;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+/* ---------- Card shell ----------
+   Positioned as a percentage of the stage, matching the reference design
+   pixel-for-pixel (measured against the 1672 x 941 artwork: left 56.06%,
+   top 8.11%, width 30.25%, height 85.44%). Because both the card and the
+   background live inside the same aspect-ratio-locked stage, they scale
+   together at any screen size and never drift apart. */
+
+.sowthas-card {
+  position: absolute;
+  left: 56.06%;
+  top: 8.11%;
+  width: 30.25%;
+  /* height: 85.44%; */
+
+  border-radius: clamp(12px, 1.4vw, 22px);
+  padding: clamp(2px, 0.2vw, 3px);
+  background: linear-gradient(160deg, var(--gold-mid) 0%, var(--gold-pale) 45%, var(--gold-mid) 100%);
+  box-shadow: 0 30px 60px -20px rgba(60, 40, 10, 0.35), 0 8px 24px rgba(60, 40, 10, 0.12);
+  box-sizing: border-box;
+}
+
+.sowthas-card-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
+  border-radius: clamp(10px, 1.2vw, 20px);
+  padding: clamp(10px, 3.4vw, 44px) clamp(10px, 3vw, 40px) clamp(8px, 2.4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.sowthas-logo {
+  width: 110px;
+  height: auto;
+  margin-bottom: 6px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.sowthas-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 4px 0 6px;
+}
+
+.sowthas-subtitle {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  margin: 0 0 26px;
+}
+
+/* ---------- Form ---------- */
+
+.sowthas-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.sowthas-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 14px 0 8px;
+}
+
+.sowthas-label:first-of-type {
+  margin-top: 0;
+}
+
+.sowthas-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 0 14px;
+  height: 50px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sowthas-input-wrap:focus-within {
+  border-color: var(--gold-deep);
+  box-shadow: 0 0 0 3px rgba(140, 90, 34, 0.14);
+}
+
+.sowthas-input-wrap.has-error {
+  border-color: #c94f4f;
+}
+
+.sowthas-input-wrap.has-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(201, 79, 79, 0.14);
+}
+
+.sowthas-input-icon {
+  color: var(--gold-deep);
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.sowthas-input-wrap input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14.5px;
+  color: var(--ink);
+  height: 100%;
+}
+
+.sowthas-input-wrap input::placeholder {
+  color: #a79c8c;
+}
+
+.sowthas-eye-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  margin-left: 6px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.sowthas-eye-btn:hover {
+  color: var(--gold-deep);
+}
+
+.sowthas-eye-btn:focus-visible,
+.sowthas-input-wrap input:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 2px;
+}
+
+.sowthas-field-error {
+  margin: 6px 2px 0;
+  font-size: 12.5px;
+  color: #c94f4f;
+}
+
+.sowthas-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 22px;
+  font-size: 13.5px;
+}
+
+.sowthas-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sowthas-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold-deep);
+  cursor: pointer;
+}
+
+.sowthas-link {
+  color: var(--gold-deep);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sowthas-link:hover {
+  text-decoration: underline;
+}
+
+.sowthas-login-btn {
+  height: 50px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold-mid), var(--gold-deep));
+  color: #fff;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  box-shadow: 0 10px 24px -8px rgba(140, 90, 34, 0.55);
+}
+
+.sowthas-login-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -8px rgba(140, 90, 34, 0.6);
+}
+
+.sowthas-login-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.sowthas-login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.sowthas-login-btn:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+}
+
+/* ---------- Divider ---------- */
+
+.sowthas-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 16px;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+}
+
+.sowthas-divider::before,
+.sowthas-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-hairline);
+}
+
+.sowthas-divider span {
+  padding: 0 12px;
+}
+
+/* ---------- Social buttons ---------- */
+
+.sowthas-social-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.sowthas-social-btn {
+  flex: 1;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-hairline);
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.sowthas-social-btn:hover {
+  background: #fbf5ea;
+  transform: translateY(-1px);
+}
+
+.sowthas-social-btn:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 2px;
+}
+
+/* ---------- Sign up line ---------- */
+
+.sowthas-signup {
+  margin: 22px 0 0;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+}
+
+.sowthas-link-strong {
+  color: var(--gold-deep);
+}
+
+/* ---------- Responsive ----------
+   Above 720px wide, the card stays glued to its exact spot on the artwork
+   (see .sowthas-card), matching the reference design pixel-for-pixel at any
+   size. Below that, keeping the card at a fixed 30% of the stage would
+   shrink it to an unusably small width, so the card "breaks out" of the
+   stage into a normal centered, full-width layout for touch use. The
+   artwork still renders in full underneath, uncropped, via `contain`. */
+
+@media (max-width: 720px) {
+  .sowthas-page {
+    height: auto;
+    overflow: auto;
+    padding: 20px;
+    /* background-image is already set inline (same artwork); switch it to
+       a normal centered, uncropped, unstretched `contain` fit here since
+       the aspect-ratio stage is disabled below. */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  .sowthas-stage {
+    background-image: none !important;
+    aspect-ratio: auto;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    position: static;
+  }
+
+  .sowthas-card {
+    position: static;
+    width: min(400px, 100%);
+    height: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .sowthas-card-inner {
+    padding: 24px 18px 20px;
+  }
+
+  .sowthas-logo {
+    width: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sowthas-login-btn,
+  .sowthas-social-btn {
+    transition: none;
+  }
+}
