@@ -73,7 +73,7 @@
   left: 56.06%;
   top: 8.11%;
   width: 30.25%;
-  /* height: 85.44%; */
+  height: 85.44%;
 
   border-radius: clamp(12px, 1.4vw, 22px);
   padding: clamp(2px, 0.2vw, 3px);
@@ -118,6 +118,29 @@
   line-height: 1.5;
   color: var(--ink-muted);
   margin: 0 0 26px;
+}
+
+.sowthas-banner {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: -10px 0 18px;
+  text-align: left;
+}
+
+.sowthas-banner-error {
+  background: #fbeaea;
+  color: #a13d3d;
+  border: 1px solid rgba(169, 61, 61, 0.25);
+}
+
+.sowthas-banner-success {
+  background: #eef6ea;
+  color: #3f6b32;
+  border: 1px solid rgba(63, 107, 50, 0.25);
 }
 
 /* ---------- Form ---------- */
@@ -335,6 +358,12 @@
 .sowthas-social-btn:hover {
   background: #fbf5ea;
   transform: translateY(-1px);
+}
+
+.sowthas-social-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .sowthas-social-btn:focus-visible {
