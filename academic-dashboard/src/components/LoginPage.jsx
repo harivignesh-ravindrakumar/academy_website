@@ -160,7 +160,6 @@ console.log("SUCCESS");
 console.log(credential.user);
 
 //onAuthSuccess?.(credential.user);
-alert("Navigating...");
 navigate("/dashboard");
 
   } catch (error) {
